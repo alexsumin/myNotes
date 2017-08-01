@@ -15,9 +15,9 @@
     </tr>
     <c:forEach items="${list}" var="item">
         <tr>
-            <td><c:out value="${item.NoteId}"/></td>
-            <td><c:out value="${item.Text}"/></td>
-            <td><c:out value="${item.LastEdit}"/></td>
+            <td><c:out value="${item.noteId}"/></td>
+            <td><c:out value="${item.text}"/></td>
+            <td><c:out value="${item.lastEdit}"/></td>
 
 
         </tr>
