@@ -6,6 +6,8 @@ import ru.alexsumin.notes.model.Note;
 import ru.alexsumin.notes.model.User;
 
 import javax.persistence.EntityManager;
+import javax.transaction.Transactional;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -25,8 +27,10 @@ public class NoteDAO {
     }
 
 
+    @Transactional
     public int createNote(Note note) {
         em.getTransaction().begin();
+        note.setLastEdit(new Date());
         em.persist(note);
         em.getTransaction().commit();
         int id = note.getNoteId();
@@ -38,22 +42,33 @@ public class NoteDAO {
 
     public int update(Note note) {
         em.getTransaction().begin();
-        Note forUpdate = em.find(Note.class, note.getNoteId());
+//        Note forUpdate = em.find(Note.class, note.getNoteId());
+//        forUpdate.setCaption(note.getCaption());
+//        forUpdate.setText(note.getText());
+//        forUpdate.setLastEdit(note.getLastEdit());
+//
+//        em.persist(forUpdate);
+//        em.getTransaction().commit();
+//
+//        return forUpdate.getNoteId();
+        note.setLastEdit(new Date());
+        em.merge(note);
 
-        forUpdate.setText(note.getText());
-        forUpdate.setLastEdit(note.getLastEdit());
 
-        em.persist(forUpdate);
+
         em.getTransaction().commit();
 
-        return forUpdate.getNoteId();
+
+        return note.getNoteId();
     }
 
     public int delete(int noteId) {
+        em.getTransaction().begin();
         Note note = em.createNamedQuery((Note.FindById), Note.class)
                 .setParameter("id", noteId).getSingleResult();
         int id = note.getNoteId();
         em.remove(note);
+        em.getTransaction().commit();
 
         return id;
     }
@@ -65,6 +80,7 @@ public class NoteDAO {
     }
 
     public List<Note> list() {
+        //TODO: только для определнного пользователя
         List<Note> list = em.createQuery("from Note").getResultList();
         return list;
     }

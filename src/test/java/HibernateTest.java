@@ -60,6 +60,7 @@ public class HibernateTest {
         em.persist(user);
 
         Note note = new Note();
+        note.setCaption("first note");
         note.setText("Hello this is test-note! Can you see me?");
         note.setLastEdit(new Date());
         note.setUser(user);
@@ -103,6 +104,7 @@ public class HibernateTest {
 
         Note note = new Note();
         note.setUser(user);
+        note.setCaption("this is note");
         note.setText("some text");
         note.setLastEdit(new Date());
 
@@ -128,7 +130,7 @@ public class HibernateTest {
 
         String s = "some changed text";
         note.setText(s);
-        //em.refresh(note);
+
         em.persist(note);
         em.getTransaction().commit();
 

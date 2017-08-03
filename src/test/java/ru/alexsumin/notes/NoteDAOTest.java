@@ -41,6 +41,7 @@ public class NoteDAOTest {
 
 
         Note note = new Note();
+        note.setCaption("other note");
         note.setText("well, this is note. do you see it?");
         note.setUser(user);
         note.setLastEdit(new Date());
@@ -57,6 +58,16 @@ public class NoteDAOTest {
 
         assertEquals(id, secondId);
         assertEquals(s, dao.get(id).getText());
+    }
+
+    @Test
+    public void createRusNote() {
+        Note note = new Note();
+        note.setCaption("кириллица");
+        note.setText("это текст. на кириллице. не правда ли?");
+        note.setLastEdit(new Date());
+
+        dao.createNote(note);
     }
 
 
@@ -81,7 +92,7 @@ public class NoteDAOTest {
 
     @Test
     public void deleteTest() {
-        dao.delete(12);
-        assertNull(dao.get(12));
+        dao.delete(3);
+        assertNull(dao.get(3));
     }
 }

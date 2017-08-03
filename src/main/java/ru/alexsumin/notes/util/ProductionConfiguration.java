@@ -25,6 +25,9 @@ public class ProductionConfiguration {
         return emf.createEntityManager();
     }
 
+
+    //trans mana jpa trans
+
     @Bean
     public ViewResolver getResolver() {
         InternalResourceViewResolver resolver = new InternalResourceViewResolver();

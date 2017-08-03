@@ -19,6 +19,9 @@ public class Note {
     @Column(name = "note_id", updatable = false, insertable = false)
     private int noteId;
 
+    @Column
+    private String caption;
+
     @Column(columnDefinition = "text")
     private String text;
 
@@ -27,6 +30,7 @@ public class Note {
 
     @ManyToOne
     private User user;
+
 
     public User getUser() {
         return user;
@@ -42,6 +46,14 @@ public class Note {
 
     public void setNoteId(int noteId) {
         this.noteId = noteId;
+    }
+
+    public String getCaption() {
+        return caption;
+    }
+
+    public void setCaption(String caption) {
+        this.caption = caption;
     }
 
     public String getText() {
@@ -64,8 +76,10 @@ public class Note {
     public String toString() {
         return "Note{" +
                 "noteId=" + noteId +
+                ", caption='" + caption + '\'' +
                 ", text='" + text + '\'' +
                 ", lastEdit=" + lastEdit +
+                ", user=" + user +
                 '}';
     }
 }
