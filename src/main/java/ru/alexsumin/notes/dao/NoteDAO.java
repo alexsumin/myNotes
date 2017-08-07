@@ -75,7 +75,7 @@ public class NoteDAO {
     }
 
     public List<Note> list() {
-        //TODO: только для определнного пользователя
+        //TODO: только для определенного пользователя
         List<Note> list = em.createQuery("from Note").getResultList();
         return list;
     }

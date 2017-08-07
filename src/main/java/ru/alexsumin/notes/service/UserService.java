@@ -1,9 +1,11 @@
 package ru.alexsumin.notes.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import ru.alexsumin.notes.dao.UserDAO;
 import ru.alexsumin.notes.model.User;
 
+@Service
 public class UserService {
 
     @Autowired
