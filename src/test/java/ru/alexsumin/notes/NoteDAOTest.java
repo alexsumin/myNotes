@@ -14,7 +14,8 @@ import javax.persistence.EntityManager;
 import java.util.Date;
 import java.util.List;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
 /**
  * Created by alex on 31.07.17.
@@ -35,8 +36,8 @@ public class NoteDAOTest {
     public void createUpdateTest() {
 
         User user = new User();
-        user.setEmail("test@mail222");
-        user.setPassword("passtest222");
+        user.setLogin("test@mail123");
+        user.setEncryptedPassword("passtest");
         em.persist(user);
 
 
@@ -73,13 +74,11 @@ public class NoteDAOTest {
 
     @Test
     public void getTest() {
-        int id = dao.get(2).getNoteId();
+        int id = dao.list().size();
 
-        assertEquals(id, dao.get(2).getNoteId());
-        System.out.println(dao.get(2).getText());
+        assertEquals(id, dao.get(id).getNoteId());
+        System.out.println(dao.get(id).getText());
 
-        assertNotEquals(id, dao.get(3).getNoteId());
-        System.out.println(dao.get(3).getText());
     }
 
     @Test
@@ -92,7 +91,8 @@ public class NoteDAOTest {
 
     @Test
     public void deleteTest() {
-        dao.delete(3);
-        assertNull(dao.get(3));
+        int id = dao.list().size();
+        dao.delete(id);
+        assertNull(dao.get(id));
     }
 }

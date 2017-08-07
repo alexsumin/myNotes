@@ -3,7 +3,6 @@ package ru.alexsumin.notes.dao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.alexsumin.notes.model.Note;
-import ru.alexsumin.notes.model.User;
 
 import javax.persistence.EntityManager;
 import javax.transaction.Transactional;
@@ -15,15 +14,11 @@ public class NoteDAO {
 
     private final EntityManager em;
 
-
     //TODO: find solution for set relations between User and his Notes
-    private User user;
-
 
     @Autowired
     public NoteDAO(EntityManager em) {
         this.em = em;
-        user = em.createNamedQuery(User.FindById, User.class).setParameter("id", 1).getSingleResult();
     }
 
 

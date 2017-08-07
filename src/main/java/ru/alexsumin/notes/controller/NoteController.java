@@ -24,9 +24,8 @@ public class NoteController {
         this.service = service;
     }
 
-    //выводит список всех заметок
     //TODO:сделать так, чтобы выводил список только опредленного юзера
-    @RequestMapping(value = {"/list", "/"}, method = RequestMethod.GET)
+    @RequestMapping(value = {"/list"}, method = RequestMethod.GET)
     public String hello(ModelMap model) {
         List<Note> list = service.list();
         NoteBean bean = new NoteBean();

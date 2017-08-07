@@ -39,14 +39,14 @@ public class HibernateTest {
         em.getTransaction().begin();
 
         User user = new User();
-        user.setEmail("root@root.ru");
-        user.setPassword("password");
+        user.setLogin("root@root.ru");
+        user.setEncryptedPassword("password");
 
         em.persist(user);
 
         em.getTransaction().commit();
 
-        assertEquals("root@root.ru", em.find(User.class, user.getUserId()).getEmail());
+        assertEquals("root@root.ru", em.find(User.class, user.getUserId()).getLogin());
     }
 
     @Test
@@ -54,8 +54,8 @@ public class HibernateTest {
         em.getTransaction().begin();
 
         User user = new User();
-        user.setEmail("test@user.com");
-        user.setPassword("testpass");
+        user.setLogin("test@user.com");
+        user.setEncryptedPassword("testpass");
 
         em.persist(user);
 
@@ -85,7 +85,7 @@ public class HibernateTest {
 
 
         for (User u : em.createNamedQuery(User.ALL_USERS, User.class).getResultList()) {
-            System.out.println(u.getUserId() + " email = " + u.getEmail());
+            System.out.println(u.getUserId() + " email = " + u.getLogin());
         }
     }
 
@@ -95,8 +95,8 @@ public class HibernateTest {
         em.getTransaction().begin();
 
         User user = new User();
-        user.setEmail("other1@example.com");
-        user.setPassword("examplepass1");
+        user.setLogin("other1@example.com");
+        user.setEncryptedPassword("examplepass1");
 
 
         em.persist(user);

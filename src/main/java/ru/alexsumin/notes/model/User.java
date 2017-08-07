@@ -3,14 +3,12 @@ package ru.alexsumin.notes.model;
 import javax.persistence.*;
 import java.util.List;
 
-/**
- * Created by alex on 30.07.17.
- */
+
 @Entity
 @NamedQueries({
         @NamedQuery(
-                name = User.FindByEmail,
-                query = "select u from User u where u.email = :email"
+                name = User.FindByLogin,
+                query = "select u from User u where u.login = :login"
         ),
         @NamedQuery(name = User.ALL_USERS,
                 query = "select u from User u"),
@@ -23,7 +21,7 @@ import java.util.List;
 @Table(name = "users")
 public class User {
     public static final String ALL_USERS = "User.allUsers";
-    public static final String FindByEmail = "User.findByEmail";
+    public static final String FindByLogin = "User.findByEmail";
     public static final String FindById = "User.findById";
 
     @Id
@@ -32,10 +30,10 @@ public class User {
     private int userId;
 
     @Column(unique = true)
-    private String email;
+    private String login;
 
-    @Column(unique = true)
-    private String password;
+    @Column(name = "encrypted_password")
+    private String encryptedPassword;
 
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     private List<Note> notes;
@@ -51,20 +49,20 @@ public class User {
         this.userId = userId;
     }
 
-    public String getEmail() {
-        return email;
+    public String getLogin() {
+        return login;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setLogin(String email) {
+        this.login = email;
     }
 
-    public String getPassword() {
-        return password;
+    public String getEncryptedPassword() {
+        return encryptedPassword;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setEncryptedPassword(String password) {
+        this.encryptedPassword = password;
     }
 
     public List<Note> getNotes() {
@@ -79,7 +77,7 @@ public class User {
     public String toString() {
         return "User{" +
                 "userId=" + userId +
-                ", email='" + email + '\'' +
+                ", email='" + login + '\'' +
                 '}';
     }
 //    public List<TaskList> getTaskLists() {
