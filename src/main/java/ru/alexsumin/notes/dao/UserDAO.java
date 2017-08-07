@@ -2,6 +2,7 @@ package ru.alexsumin.notes.dao;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import ru.alexsumin.notes.model.User;
 
@@ -12,15 +13,18 @@ import java.util.List;
 public class UserDAO {
 
     private final EntityManager em;
+    private final PasswordEncoder encoder;
 
 
     @Autowired
-    public UserDAO(EntityManager em) {
+    public UserDAO(EntityManager em, PasswordEncoder encoder) {
         this.em = em;
+        this.encoder = encoder;
     }
 
     public int add(User user) {
         em.getTransaction().begin();
+        user.setEncryptedPassword(encoder.encode(user.getEncryptedPassword()));
         em.persist(user);
         em.getTransaction().commit();
         int id = user.getUserId();

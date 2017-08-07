@@ -27,7 +27,7 @@ public class UserDAOTest {
     @Test
     public void addUserTest() {
         User user = new User();
-        String s = "other@login";
+        String s = "other@login2";
         user.setLogin(s);
         user.setEncryptedPassword("tra-ta-ta");
 
